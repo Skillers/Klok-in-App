@@ -1,0 +1,14 @@
+Google Login Process.
+1. frontend and backend need to be started. see Readme
+
+2. On frontend there is a google login button visible.
+
+3. When user clicks on google login a google popup with load where the user can login with ONLY a roc-dev account.
+
+4. after login the user will be redirected to the same page.
+
+5. If user signed in succesfully the user data can be accessed with the handleSuccess function.
+
+6. HandleSuccess function will be executed and the tokenId will be send to the backend to verify the token.
+
+7. If backend verify succesfully the name email and picture will be sent back to frontend.

@@ -7,6 +7,7 @@ import Axios from "axios";
 function App() {
   const [loginData, setLoginData] = useState("");
 
+  // localStorage to check if user already logged in when user opens page
   useEffect(() => {
     if (
       localStorage.getItem("tokenId") !== "" &&
@@ -20,10 +21,13 @@ function App() {
       });
     }
   }, []);
+
+  // if login failed, console.log(error)
   const handleFailure = (result) => {
     console.log(result);
   };
 
+  // if frontend login succesfully send the google idTokenID to verify the tokenId
   const handleLogin = (googleData) => {
     console.log(googleData);
     Axios.post("/api/google-login", {
