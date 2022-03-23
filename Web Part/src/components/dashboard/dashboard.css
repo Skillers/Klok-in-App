@@ -10,8 +10,14 @@
   color: white;
 }
 
+.errorText {
+  color: rgb(255, 25, 0);
+  margin-bottom: 10px;
+}
+
 #dashboardContainer h2 {
-  font-size: 60px;
+  font-size: 50px;
+  margin-bottom: 20px;
 }
 
 .form {
@@ -37,6 +43,7 @@
   text-align: center;
   font-size: 30px;
   font-weight: 400;
+  margin: 15px 0;
 }
 
 .form select {

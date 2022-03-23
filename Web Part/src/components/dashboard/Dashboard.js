@@ -33,10 +33,30 @@ const Dashboard = () => {
   const [passNumber, setPassNumber] = useState("");
   const [githubAccount, setGithubAccount] = useState("");
   const [classGroup, setClassGroup] = useState("1a");
+  const [errorPassNumber, setErrorPassNumber] = useState("");
 
-  // handle button post user info
+  // function letterCheck
+  const containsAnyLetter = (str) => {
+    return /[a-zA-Z]/.test(str);
+  };
 
   const handleSendInfo = () => {
+    // validate if pass number contains letters
+    if (containsAnyLetter(String(passNumber))) {
+      setErrorPassNumber("Pass Number can't contain letters.");
+      return setTimeout(() => {
+        setErrorPassNumber("");
+      }, 2000);
+    }
+
+    // validate if pass number is 9 numbers long
+    if (String(passNumber).length < 9 || String(passNumber).length > 9) {
+      setErrorPassNumber("pass number needs to have 9 numbers.");
+      return setTimeout(() => {
+        setErrorPassNumber("");
+      }, 2000);
+    }
+
     if (passNumber !== "" && githubAccount !== "" && classGroup !== "") {
       console.log({ passNumber, githubAccount, classGroup });
       Axios.post("http://localhost:5000/sendAccountInfo", {
@@ -50,28 +70,41 @@ const Dashboard = () => {
     }
   };
 
-  let name = "name";
   return (
     <div id="dashboardContainer">
       <h2>Hello {userInfo.name}!</h2>
       <div className="form">
         <h3>Account Info</h3>
+        <label>Cohort</label>
         <select
           onChange={(e) => {
             setClassGroup(e.target.value);
           }}
         >
-          <option value="1a">1A (Test)</option>
-          <option value="1b">1B (Test)</option>
-          <option value="1c">1C (Test)</option>
-          <option value="1d">1D (Test)</option>
+          <option value="1a">8 </option>
+          <option value="1b">9 </option>
+          <option value="1c">0 </option>
+          <option value="1d">1 </option>
+        </select>
+        <label>Klas</label>
+        <select
+          onChange={(e) => {
+            setClassGroup(e.target.value);
+          }}
+        >
+          <option value="1a">A</option>
+          <option value="1b">B</option>
+          <option value="1c">C</option>
+          <option value="1d">D</option>
         </select>
         <label>Pass Number</label>
         <input
+          type="number"
           onChange={(e) => {
             setPassNumber(e.target.value);
           }}
         />
+        {errorPassNumber && <p className="errorText">{errorPassNumber}</p>}
         <label>Github Account</label>
         <input
           onChange={(e) => {

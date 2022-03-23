@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const { OAuth2Client } = require("google-auth-library");
 const cors = require("cors");
+let mysql = require("mysql");
 
 dotenv.config();
 const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
