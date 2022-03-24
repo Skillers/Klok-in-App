@@ -100,8 +100,17 @@ const Dashboard = () => {
         <label>Pass Number</label>
         <input
           type="number"
+          maxLength={9}
+          value={passNumber}
           onChange={(e) => {
-            setPassNumber(e.target.value);
+            if (
+              String(passNumber).length !== 9 ||
+              e.nativeEvent.inputType == "deleteContentBackward"
+            ) {
+              console.log(passNumber.length);
+              console.log(e.target);
+              setPassNumber(String(e.target.value));
+            }
           }}
         />
         {errorPassNumber && <p className="errorText">{errorPassNumber}</p>}
