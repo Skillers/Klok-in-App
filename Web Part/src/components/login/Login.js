@@ -40,15 +40,21 @@ function Login() {
 
   return (
     <div id="loginContainer">
-      <h2>Roc Software Developer Klok In App</h2>
-      <GoogleLogin
-        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-        buttonText="Log In with Google"
-        onSuccess={handleLogin}
-        onFailure={handleFailure}
-        cookiePolicy={"single_host_origin"}
-        hostedDomain={"roc-dev.com"}
-      ></GoogleLogin>
+      <img width={300} src="./roclogo.png" />
+      <h2>Welcome to the Clock In App! </h2>
+
+      <div className="test">
+        <h1>Login with google</h1>
+        <p>To use the application you need to login with google.</p>
+        <GoogleLogin
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          buttonText="Login with Google"
+          onSuccess={handleLogin}
+          onFailure={handleFailure}
+          cookiePolicy={"single_host_origin"}
+          hostedDomain={"roc-dev.com"}
+        ></GoogleLogin>
+      </div>
     </div>
   );
 }

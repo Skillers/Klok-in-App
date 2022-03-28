@@ -2,12 +2,13 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 12px;
   align-items: center;
   justify-content: center;
-  background-color: rgb(122, 135, 141);
+  background-color: rgb(238, 237, 237);
   flex-direction: column;
-  color: white;
+  color: black;
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -28,11 +29,13 @@ input[type="number"] {
 
 #dashboardContainer h2 {
   font-size: 50px;
-  margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .form {
-  background-color: rgb(67, 77, 82);
+  margin-top: 30px;
+  background-color: rgb(253, 253, 253);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: column;
@@ -43,7 +46,7 @@ input[type="number"] {
 }
 
 .form label {
-  color: rgb(214, 214, 214);
+  color: rgb(47, 47, 47);
   margin-bottom: 5px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 400;
@@ -52,8 +55,8 @@ input[type="number"] {
 .form h3 {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  font-size: 30px;
-  font-weight: 400;
+  font-size: 27px;
+  font-weight: 500;
   margin: 15px 0;
 }
 
@@ -64,6 +67,13 @@ input[type="number"] {
   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
     rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
   outline: none;
+
+  border: white;
+}
+
+.form select:focus {
+  transition: all 0.5s;
+  border: 1.5px solid orange;
 }
 
 .form input {
@@ -74,20 +84,29 @@ input[type="number"] {
   border: none;
   font-size: 15px;
   padding: 10px 10px;
-  border-radius: 6px;
+  border-radius: 4px;
   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
     rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  outline: white;
+}
+
+.form input:active,
+.form input:focus {
+  transition: all 0.6s;
+  outline: rgb(255, 123, 0) 1.5px solid;
 }
 
 .form button {
   color: white;
-  background-color: rgb(116, 131, 195);
+  background-color: rgb(255, 123, 0);
   border-radius: 6px;
   height: 40px;
   margin: 20px 0;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  font-weight: 500;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
   transition: all 0.4s;
   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
     rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
@@ -102,7 +121,11 @@ input[type="number"] {
   padding: 10px 15px;
   border-radius: 4px;
   cursor: pointer;
+  margin-bottom: 90px;
   transition: all 0.3s;
+  background-color: white;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
 .logOutButton:hover {

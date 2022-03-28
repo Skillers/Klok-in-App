@@ -73,8 +73,9 @@ const Dashboard = () => {
   return (
     <div id="dashboardContainer">
       <h2>Hello {userInfo.name}!</h2>
+      <p>Almost ready, We only need your account info.</p>
       <div className="form">
-        <h3>Account Info</h3>
+        <h3>Setup Account Info</h3>
         <label>Cohort</label>
         <select
           onChange={(e) => {
@@ -99,6 +100,7 @@ const Dashboard = () => {
         </select>
         <label>Pass Number</label>
         <input
+          placeholder="Enter pass number"
           type="number"
           maxLength={9}
           value={passNumber}
@@ -116,6 +118,7 @@ const Dashboard = () => {
         {errorPassNumber && <p className="errorText">{errorPassNumber}</p>}
         <label>Github Account</label>
         <input
+          placeholder="Enter Github account"
           onChange={(e) => {
             setGithubAccount(e.target.value);
           }}
@@ -125,6 +128,7 @@ const Dashboard = () => {
       <button className="logOutButton" onClick={handleLogout}>
         Logout
       </button>
+      <img width={200} src="./roclogo.png" />
     </div>
   );
 };
