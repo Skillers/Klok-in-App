@@ -34,6 +34,7 @@ const Dashboard = () => {
   const [githubAccount, setGithubAccount] = useState("");
   const [classGroup, setClassGroup] = useState("1a");
   const [errorPassNumber, setErrorPassNumber] = useState("");
+  const [errorGithub, setErrorGithub] = useState("");
 
   // function letterCheck
   const containsAnyLetter = (str) => {
@@ -41,23 +42,46 @@ const Dashboard = () => {
   };
 
   const handleSendInfo = () => {
+    // check if input is empty github account
+    if (String(githubAccount).length == 0) {
+      setErrorGithub("You need a github account.");
+    } else {
+      setErrorGithub("");
+    }
+
+    // check if github account exists
+    if (String(githubAccount).length !== 0) {
+      Axios.get(`http://api.github.com/users/${githubAccount}`)
+        .then((res) => {
+          console.log(res);
+          setErrorGithub("");
+        })
+        .catch((err) => {
+          setErrorGithub("Invalid Github Account.");
+        });
+    }
+
     // validate if pass number contains letters
     if (containsAnyLetter(String(passNumber))) {
       setErrorPassNumber("Pass Number can't contain letters.");
-      return setTimeout(() => {
-        setErrorPassNumber("");
-      }, 2000);
+    } else {
+      setErrorPassNumber("");
     }
 
     // validate if pass number is 9 numbers long
     if (String(passNumber).length < 9 || String(passNumber).length > 9) {
       setErrorPassNumber("pass number needs to have 9 numbers.");
-      return setTimeout(() => {
-        setErrorPassNumber("");
-      }, 2000);
+    } else {
+      setErrorPassNumber("");
     }
 
-    if (passNumber !== "" && githubAccount !== "" && classGroup !== "") {
+    if (
+      passNumber !== "" &&
+      githubAccount !== "" &&
+      classGroup !== "" &&
+      errorGithub !== "" &&
+      errorPassNumber !== ""
+    ) {
       console.log({ passNumber, githubAccount, classGroup });
       Axios.post("http://localhost:5000/sendAccountInfo", {
         token: localStorage.getItem("tokenId"),
@@ -98,31 +122,35 @@ const Dashboard = () => {
           <option value="1c">C</option>
           <option value="1d">D</option>
         </select>
-        <label>Pass Number</label>
-        <input
-          placeholder="Enter pass number"
-          type="number"
-          maxLength={9}
-          value={passNumber}
-          onChange={(e) => {
-            if (
-              e.nativeEvent.data !== "e" &&
-              (String(passNumber).length !== 9 ||
-                e.nativeEvent.inputType == "deleteContentBackward")
-            ) {
-              console.log(e);
-              setPassNumber(String(e.target.value));
-            }
-          }}
-        />
-        {errorPassNumber && <p className="errorText">{errorPassNumber}</p>}
-        <label>Github Account</label>
-        <input
-          placeholder="Enter Github account"
-          onChange={(e) => {
-            setGithubAccount(e.target.value);
-          }}
-        />
+        <div className="inputContainer">
+          <label>Pass Number</label>
+          <input
+            placeholder="Enter pass number"
+            type="number"
+            maxLength={9}
+            value={passNumber}
+            onChange={(e) => {
+              if (
+                e.nativeEvent.data !== "e" &&
+                (String(passNumber).length !== 9 ||
+                  e.nativeEvent.inputType == "deleteContentBackward")
+              ) {
+                setPassNumber(String(e.target.value));
+              }
+            }}
+          />
+          {errorPassNumber && <p className="errorText">{errorPassNumber}</p>}
+        </div>
+        <div className="inputContainer">
+          <label>Github Account</label>
+          <input
+            placeholder="Enter Github account"
+            onChange={(e) => {
+              setGithubAccount(e.target.value);
+            }}
+          />
+          {errorGithub && <p className="errorText">{errorGithub}</p>}
+        </div>
         <button onClick={handleSendInfo}>Confirm Account Info</button>
       </div>
       <button className="logOutButton" onClick={handleLogout}>
