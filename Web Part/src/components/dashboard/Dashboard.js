@@ -104,11 +104,11 @@ const Dashboard = () => {
           value={passNumber}
           onChange={(e) => {
             if (
-              String(passNumber).length !== 9 ||
-              e.nativeEvent.inputType == "deleteContentBackward"
+              e.nativeEvent.data !== "e" &&
+              (String(passNumber).length !== 9 ||
+                e.nativeEvent.inputType == "deleteContentBackward")
             ) {
-              console.log(passNumber.length);
-              console.log(e.target);
+              console.log(e);
               setPassNumber(String(e.target.value));
             }
           }}
