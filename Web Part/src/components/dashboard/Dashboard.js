@@ -16,6 +16,7 @@ const Dashboard = () => {
     })
       .then((result) => {
         setUserInfo(result.data);
+        console.log(result, "resultwetwe");
       })
       .catch((err) => {
         console.log(err);
@@ -32,7 +33,8 @@ const Dashboard = () => {
   // keep track of form inputs
   const [passNumber, setPassNumber] = useState("");
   const [githubAccount, setGithubAccount] = useState("");
-  const [classGroup, setClassGroup] = useState("1a");
+  const [classGroup, setClassGroup] = useState("8");
+  const [cohort, setCohort] = useState("A");
   const [errorPassNumber, setErrorPassNumber] = useState("");
   const [errorGithub, setErrorGithub] = useState("");
 
@@ -79,15 +81,14 @@ const Dashboard = () => {
       passNumber !== "" &&
       githubAccount !== "" &&
       classGroup !== "" &&
-      errorGithub !== "" &&
-      errorPassNumber !== ""
+      errorGithub == "" &&
+      errorPassNumber == ""
     ) {
-      console.log({ passNumber, githubAccount, classGroup });
-      Axios.post("http://localhost:5000/sendAccountInfo", {
-        token: localStorage.getItem("tokenId"),
-        passNumber,
-        githubAccount,
-        classGroup,
+      Axios.post("https://softwareondersteunt.nl/API/create_user.php", {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true,
+        },
       }).then((res) => {
         console.log(res);
       });
@@ -96,7 +97,9 @@ const Dashboard = () => {
 
   return (
     <div id="dashboardContainer">
-      <h2>Hello {userInfo.name}!</h2>
+      <h2>
+        Hello {userInfo.given_name} {userInfo.family_name}!
+      </h2>
       <p>Almost ready, We only need your account info.</p>
       <div className="form">
         <h3>Setup Account Info</h3>
@@ -106,21 +109,21 @@ const Dashboard = () => {
             setClassGroup(e.target.value);
           }}
         >
-          <option value="1a">8 </option>
-          <option value="1b">9 </option>
-          <option value="1c">0 </option>
-          <option value="1d">1 </option>
+          <option value="8">8 </option>
+          <option value="9">9 </option>
+          <option value="0">0 </option>
+          <option value="1">1 </option>
         </select>
         <label>Klas</label>
         <select
           onChange={(e) => {
-            setClassGroup(e.target.value);
+            setCohort(e.target.value);
           }}
         >
-          <option value="1a">A</option>
-          <option value="1b">B</option>
-          <option value="1c">C</option>
-          <option value="1d">D</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
         </select>
         <div className="inputContainer">
           <label>Pass Number</label>

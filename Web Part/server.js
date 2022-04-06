@@ -11,29 +11,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.post("/sendAccountInfo", async (req, res) => {
-  try {
-    const { token, passNumber, githubAccount, classGroup } = req.body;
-
-    // verify token
-    const ticket = await client.verifyIdToken({
-      idToken: token,
-      audience: process.env.CLIENT_ID,
-    });
-
-    const { name, email, picture, tokenId } = ticket.getPayload();
-    return res.status(200).json({
-      message: "Sucessfully Send Account Info",
-      passNumber,
-      githubAccount,
-      classGroup,
-    });
-  } catch (error) {
-    console.log(error, "test");
-    return res.status(400).json({ message: error });
-  }
-});
-
 app.post("/api/google-login", async (req, res) => {
   try {
     const { token } = req.body;
@@ -42,9 +19,16 @@ app.post("/api/google-login", async (req, res) => {
       audience: process.env.CLIENT_ID,
     });
 
-    const { name, email, picture, tokenId } = ticket.getPayload();
+    const { family_name, given_name, email, picture, tokenId } =
+      ticket.getPayload();
 
-    res.status(201).json({ name, email, picture, tokenId });
+    res.status(201).json({
+      family_name,
+      given_name,
+      email,
+      picture,
+      tokenId,
+    });
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: error });

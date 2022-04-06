@@ -13,7 +13,7 @@ function Login() {
       token: localStorage.getItem("tokenId"),
     })
       .then((result) => {
-        console.log(result);
+        console.log(result, "result");
         navigate("/dashboard");
       })
       .catch((err) => {
