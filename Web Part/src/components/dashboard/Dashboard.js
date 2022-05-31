@@ -85,10 +85,13 @@ const Dashboard = () => {
       errorPassNumber == ""
     ) {
       Axios.post("https://softwareondersteunt.nl/API/create_user.php", {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": true,
-        },
+        idstudentpasnummer: passNumber,
+        Naam: userInfo.given_name,
+        tussenvoegsel: "",
+        achternaam: userInfo.family_name,
+        klas: classGroup,
+        cohort: cohort,
+        EmailRocDev: userInfo.email,
       }).then((res) => {
         console.log(res);
       });
