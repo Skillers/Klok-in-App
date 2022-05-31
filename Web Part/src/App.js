@@ -1,6 +1,4 @@
 import "./App.css";
-import { useEffect, useState } from "react";
-import Axios from "axios";
 import Login from "./components/login/Login";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";

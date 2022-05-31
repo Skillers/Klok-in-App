@@ -11,7 +11,7 @@ const Dashboard = () => {
 
   // Check if user logged in if not send back to login screen
   useEffect(() => {
-    Axios.post("http://localhost:5000/api/google-login", {
+    Axios.post("https://roc-dev.tech/api/google-login", {
       token: localStorage.getItem("tokenId"),
     })
       .then((result) => {

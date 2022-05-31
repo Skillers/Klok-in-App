@@ -9,7 +9,7 @@ function Login() {
 
   // Check if user is already logged in
   useEffect(() => {
-    Axios.post("http://localhost:5000/api/google-login", {
+    Axios.post("https://roc-dev.tech/api/google-login", {
       token: localStorage.getItem("tokenId"),
     })
       .then((result) => {
