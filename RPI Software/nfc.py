@@ -106,7 +106,6 @@ def main():
             GPIO.output(SUCCESS, GPIO.LOW)
         elif res.status_code == 200:
             last_uid = uid
-            time.sleep(2)
             GPIO.output(SUCCESS, GPIO.LOW)
         else:
             logging.error(f"Error communicating with server {res.status_code}")
