@@ -55,10 +55,13 @@ const Dashboard = () => {
     if (String(githubAccount).length !== 0) {
       Axios.get(`https://api.github.com/users/${githubAccount}`)
         .then((res) => {
-          console.log(res);
-          setErrorGithub("");
+          if (res.status == 404) {
+            setErrorGithub("Invalid Github Account.");
+          } else {
+            setErrorGithub("");
+          }
         })
-        .catch((err) => {
+        .catch((err) => {     
           setErrorGithub("Invalid Github Account.");
         });
     }
@@ -85,15 +88,17 @@ const Dashboard = () => {
       errorPassNumber == ""
     ) {
       Axios.post("https://roc-dev.tech/API/create_user.php", {
-        idstudentpasnummer: passNumber,
+        Pasnummer: passNumber,
         Naam: userInfo.given_name,
-        tussenvoegsel: "",
-        achternaam: userInfo.family_name,
-        klas: classGroup,
-        cohort: cohort,
+        Tussenvoegsels: "",
+        Achternaam: userInfo.family_name,
+        Klas: classGroup,
+        Cohort: cohort,
         EmailRocDev: userInfo.email,
+        Github: githubAccount,
       }).then((res) => {
         console.log(res);
+        handleLogout();
       });
     }
   };
