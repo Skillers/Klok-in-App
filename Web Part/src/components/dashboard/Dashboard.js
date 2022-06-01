@@ -98,6 +98,7 @@ const Dashboard = () => {
         Github: githubAccount,
       }).then((res) => {
         console.log(res);
+        alert("Registration complete! Logging you out.");
         handleLogout();
       });
     }
