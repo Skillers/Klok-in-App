@@ -17,14 +17,14 @@ const Dashboard = () => {
       .then((result) => {
         if (result.status != 200) {
           alert("Not logged in!");
-          navigate("/dashboard");
+          navigate("/login");
         }
         setUserInfo(result.data);
         console.log(result, "resultwetwe");
       })
       .catch((err) => {
         console.log(err);
-        navigate("/dashboard");
+        navigate("/login");
       });
   }, []);
 
