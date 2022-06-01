@@ -62,7 +62,11 @@ def send_clock_in_data(nummer):
         
 def error():
     GPIO.output(ERROR, GPIO.HIGH)
-    time.sleep(2)
+    time.sleep(1)
+    GPIO.output(ERROR, GPIO.LOW)
+    time.sleep(1)
+    GPIO.output(ERROR, GPIO.HIGH)
+    time.sleep(1)
     GPIO.output(ERROR, GPIO.LOW)
     
 def main():
@@ -102,10 +106,11 @@ def main():
             GPIO.output(SUCCESS, GPIO.LOW)
         elif res.status_code == 200:
             last_uid = uid
-            time.sleep(2)
             GPIO.output(SUCCESS, GPIO.LOW)
         else:
             logging.error(f"Error communicating with server {res.status_code}")
+            error()
+            GPIO.output(SUCCESS, GPIO.LOW)
             
     
 if __name__ == "__main__":

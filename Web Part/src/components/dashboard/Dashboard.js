@@ -15,6 +15,10 @@ const Dashboard = () => {
       token: localStorage.getItem("tokenId"),
     })
       .then((result) => {
+        if (result.status != 200) {
+          alert("Not logged in!");
+          navigate("/dashboard");
+        }
         setUserInfo(result.data);
         console.log(result, "resultwetwe");
       })
@@ -55,7 +59,7 @@ const Dashboard = () => {
     if (String(githubAccount).length !== 0) {
       Axios.get(`https://api.github.com/users/${githubAccount}`)
         .then((res) => {
-          if (res.status == 404) {
+          if (res.status != 200) {
             setErrorGithub("Invalid Github Account.");
           } else {
             setErrorGithub("");
@@ -140,6 +144,7 @@ const Dashboard = () => {
             placeholder="Enter pass number"
             type="number"
             maxLength={9}
+            minLength={9}
             value={passNumber}
             onChange={(e) => {
               if (
