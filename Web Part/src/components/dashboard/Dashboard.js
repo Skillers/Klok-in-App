@@ -115,7 +115,7 @@ const Dashboard = () => {
         <label>Cohort</label>
         <select
           onChange={(e) => {
-            setClassGroup(e.target.value);
+            setCohort(e.target.value);
           }}
         >
           <option value="8">8 </option>
@@ -126,7 +126,7 @@ const Dashboard = () => {
         <label>Klas</label>
         <select
           onChange={(e) => {
-            setCohort(e.target.value);
+            setClassGroup(e.target.value);
           }}
         >
           <option value="A">A</option>
