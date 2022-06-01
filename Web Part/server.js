@@ -22,7 +22,7 @@ app.post("/api/google-login", async (req, res) => {
     const { family_name, given_name, email, picture, tokenId } =
       ticket.getPayload();
 
-    res.status(201).json({
+    res.status(200).json({
       family_name,
       given_name,
       email,
