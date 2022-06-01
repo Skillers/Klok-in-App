@@ -53,7 +53,7 @@ const Dashboard = () => {
 
     // check if github account exists
     if (String(githubAccount).length !== 0) {
-      Axios.get(`http://api.github.com/users/${githubAccount}`)
+      Axios.get(`https://api.github.com/users/${githubAccount}`)
         .then((res) => {
           console.log(res);
           setErrorGithub("");
@@ -84,7 +84,7 @@ const Dashboard = () => {
       errorGithub == "" &&
       errorPassNumber == ""
     ) {
-      Axios.post("https://softwareondersteunt.nl/API/create_user.php", {
+      Axios.post("https://roc-dev.tech/API/create_user.php", {
         idstudentpasnummer: passNumber,
         Naam: userInfo.given_name,
         tussenvoegsel: "",
