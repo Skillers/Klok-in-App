@@ -140,6 +140,7 @@ const Dashboard = () => {
             placeholder="Enter pass number"
             type="number"
             maxLength={9}
+            minLength={9}
             value={passNumber}
             onChange={(e) => {
               if (
