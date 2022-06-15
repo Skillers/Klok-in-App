@@ -94,6 +94,11 @@ def main():
         GPIO.output(SUCCESS, GPIO.HIGH)
         logging.debug(f'Found card with UID: {[hex(i) for i in uid]}')
         student_number = read_card(uid)
+
+        if student_number is None:
+            GPIO.output(SUCCESS, GPIO.HIGH)
+            continue
+
         res = send_clock_in_data(student_number)
                 
         if res.status_code == 404:
