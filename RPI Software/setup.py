@@ -74,8 +74,9 @@ def setup_auto_updates():
 
 def setup_cron():
     user = os.getlogin()
+    folder = os.getcwd()
     os.system("runuser -u " + user + " -- crontab -l > job")
-    os.system("echo '@reboot python3 ${PWD}/nfc.py' > job")
+    os.system(f"echo '@reboot python3 {folder}/nfc.py' > job")
     os.system("runuser -u " + user + " -- crontab job")
     os.system("rm job")
 
