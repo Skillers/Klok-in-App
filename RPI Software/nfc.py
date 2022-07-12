@@ -1,6 +1,7 @@
 import board
 import busio
 import time
+import os
 import RPi.GPIO as GPIO
 import requests
 import logging
@@ -10,9 +11,22 @@ from adafruit_pn532.adafruit_pn532 import MIFARE_CMD_AUTH_A
 SUCCESS = 26
 ERROR = 19
 
+BUZZER = 23
+SHUTDOWNBUTTON = 24
+REBOOTBUTTON = 18
+
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
+
 GPIO.setup(SUCCESS, GPIO.OUT)
 GPIO.setup(ERROR, GPIO.OUT)
+GPIO.setup(BUZZER, GPIO.OUT)
+
+GPIO.setup(SHUTDOWNBUTTON, GPIO.IN)
+GPIO.setup(REBOOTBUTTON, GPIO.IN)
+
+GPIO.add_event_detect(SHUTDOWNBUTTON, GPIO.RISING, callback=lambda c: os.system("shutdown -h now"))
+GPIO.add_event_detect(REBOOTBUTTON, GPIO.RISING, callback=lambda c: os.system("reboot"))
 
 i2c = busio.I2C(board.SCL, board.SDA)
 
@@ -23,6 +37,11 @@ keya = [0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5]
 url = "https://roc-dev.tech/API/inklok_uitklok.php"
 
 logging.basicConfig(filename="clock_in.log", level=logging.DEBUG, format="%(asctime)s %(levelname)s: %(message)s", datefmt="%d-%m-%Y %H:%M:%S")
+
+def buzz(channel):
+    GPIO.output(BUZZER, GPIO.HIGH)
+    time.sleep(0.3)
+    GPIO.output(BUZZER, GPIO.LOW)
 
 def wait_for_connection():
     connected = False
